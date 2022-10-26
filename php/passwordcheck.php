@@ -3,7 +3,6 @@
 function passwordcheck($post_string, $bname_pk)
 {
 
-    // $post_string = $_POST["pwdErstellen"];
     $str = $post_string;
 
     $array_ascii = [];
