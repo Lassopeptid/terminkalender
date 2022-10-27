@@ -1,24 +1,5 @@
-Dashboard
--- Alle Termine im Überblick! --
-
-<!--  Test session -->
-<a href="logoutsite.php">
-    <button id='btnlogout' name='logout'>Abmelden</button>
-</a>
-
-<br>
-
-<form action="dashboard.php" method=POST>
-    <input type="submit" name="anzeige" value=' Anstehende Termine einsehen' id='display'>
-</form>
-
-<form action="dashboard.php" method=POST>
-    <input type="submit" name="archiv" value=' Archiv einsehen' id='display'>
-</form>
-
-<form action="dashboard.php" method=POST>
-    <input type="submit" name="termin_erstellen" value=' Termin erstellen' id='display'>
-</form>
+<h1>Dashboard</h1>
+<h2>-- Alle Termine im Überblick! --</h2>
 
 
 <?php
@@ -39,26 +20,101 @@ $data_vname = $data['vorname'];
 $data_email = $data['email'];
 // mysqli_close($link);
 
-echo '<br>Willkommen ' . $data_vname . '!';
+echo '<br><h3>Willkommen, ' . $data_vname . '!</h3><br><br>';
 
 ?>
 
 
-<!-- <form action="" method=POST>
-    <label for="datum">Datum:</label>
-    <input type="date" id="datum" name="datum" min="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d'); ?>" required>
+<!--  Test session -->
+<a href="logoutsite.php">
+    <button id='btnlogout' name='logout'>Abmelden</button>
+</a>
 
-    <label for="uhrzeit">Uhrzeit:</label>
-    <input type="time" id="uhrzeit" name="uhrzeit" value="<?php echo date("h:i"); ?>" required>
+<br>
+<br>
 
-    <p><label for="temin">Terminbeschreibung:</label></p>
-    <textarea id="termin" name="termin" rows="4" cols="50" placeholder="Termin hier eintragen...max 100 Zeichen" maxlength='100' required></textarea>
-    <input type="submit" name="termin_submit" value=' Termin bestätigen'>
-</form> -->
+<form action="dashboard.php" method=POST>
+    <input type="submit" name="anzeige" value=' Anstehende Termine einsehen' id='display'>
+</form>
+
+<form action="dashboard.php" method=POST>
+    <input type="submit" name="archiv" value=' Archiv einsehen' id='display'>
+</form>
+
+<form action="dashboard.php" method=POST>
+    <input type="submit" name="termin_erstellen" value=' Termin erstellen' id='display'>
+</form>
+
+<form action="dashboard.php" method=POST>
+    <input type="submit" name="termin_suchen" value=' Termin suchen' id='display'>
+</form>
 
 
 
 <?php
+
+if (isset($_POST['termin_suchen'])) {
+
+    echo '
+<form action="" method=POST>
+Suchbegriff eingeben: <input type="text" name="termin_suchfeld" id="termin_suchfeld" required>
+<input type="submit" name="termin_suchbegriff" value="Anfrage verschicken" id="display">
+</form>
+';
+}
+
+if (isset($_POST['termin_suchbegriff'])) {
+    $termin_suchfeld = $_POST['termin_suchfeld'];
+    // echo 'OK, OK';
+    // echo $termin_suchfeld;
+
+    $befehl_termin_suchen = "SELECT * FROM eintraege WHERE termin_fk= '$session_pk' AND termin LIKE '%$termin_suchfeld%'";
+    $antwort_termin_suchen = mysqli_query($link, $befehl_termin_suchen);
+
+    echo "
+    <table>
+        <tr>
+            <td> Termin Bearbeiten</td>
+            <td> Termin löschen </td>
+            <td> Beschreibung </td>
+            <td> Datum </td>
+            <td> Uhrzeit </td>
+        </tr>
+    ";
+    while ($data_terminanzeige = mysqli_fetch_array($antwort_termin_suchen)) {
+
+        $datapk = $data_terminanzeige['termin_pk'];
+        $datatermin = $data_terminanzeige['termin'];
+        $datadate = $data_terminanzeige['datum'];
+        $datazeit = substr($data_terminanzeige['uhrzeit'], 0, 5);
+        $array_suchen = [];
+        if ($datadate >= date('Y-m-d')) {
+            $array_suchen[]= 1;
+            echo "
+        <tr>
+            <td><a href='?bearbeiten=" . $datapk . "'>Bearbeiten</a></td>
+            <td><a href='?loeschen=" . $datapk . "'>Löschen</a></td>
+            <td> " . $datatermin . " </td>
+            <td> " . $datadate . " </td>
+            <td> " . $datazeit . "  </td>
+        </tr>
+        ";
+        }
+    }
+    echo " 
+    </table>";
+
+    if (empty($array_suchen)) {
+        echo '<p>Keine Termine mit dem Suchbegriff "'.$termin_suchfeld.'" gefunden.</p>';
+        echo "
+        <table id='eintraege_tab' style='display: none;'>";
+        die;
+    }
+
+
+
+}
+
 
 if (isset($_POST['termin_erstellen'])) {
 
@@ -99,8 +155,6 @@ if (isset($_POST['termin_submit_bearbeiten'])) {
 
     echo '
 <form action="" method=POST id="termin_submit_bearbeiten" style="display:none;">';
-
-
 }
 
 
@@ -232,7 +286,7 @@ if (isset($_POST['archiv'])) {
             <td> Uhrzeit </td>
         </tr>
     ";
-    $i = 0;
+
     while ($data_terminanzeige = mysqli_fetch_array($antwort_terminanzeige)) {
 
         $datapk = $data_terminanzeige['termin_pk'];
@@ -241,7 +295,7 @@ if (isset($_POST['archiv'])) {
         $datazeit = substr($data_terminanzeige['uhrzeit'], 0, 5);
         $array_archiv = [];
         if ($datadate < date('Y-m-d')) {
-            // $i++;
+
             $array_archiv[] = 1;
             echo "
         <tr>
@@ -257,7 +311,7 @@ if (isset($_POST['archiv'])) {
     echo " 
     </table>";
 
-    if (  empty($array_archiv)  ) {
+    if (empty($array_archiv)) {
         echo '<p>Keine archivierten Termine.</p>';
         echo "
         <table id='eintraege_tab' style='display: none;'>";

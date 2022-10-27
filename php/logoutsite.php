@@ -1,5 +1,7 @@
 Sie sind nun abgemeldet!
 
+<a href="loginsite.php">Anmeldeseite aufrufen</a>
+
 <?php
 session_start();
 session_destroy();
