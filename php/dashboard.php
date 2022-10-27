@@ -4,11 +4,14 @@
 
 <?php
 session_start();
-// error_reporting(0);
+error_reporting(0);
 $session_user =  $_SESSION["benutzer"];
 $session_pk = $_SESSION["benutzer_pk"];
 if (!isset($session_pk)) {
-    echo 'keine aktive Session.';
+    echo 'keine aktive Sitzung.<br>';
+    echo 'Bitte einloggen: <a href="loginsite.php">Anmeldeseite aufrufen</a><br>';
+    // header('Location: loginsite.php');
+    die;
 }
 
 include('connect.php');
@@ -65,8 +68,6 @@ Suchbegriff eingeben: <input type="text" name="termin_suchfeld" id="termin_suchf
 
 if (isset($_POST['termin_suchbegriff'])) {
     $termin_suchfeld = $_POST['termin_suchfeld'];
-    // echo 'OK, OK';
-    // echo $termin_suchfeld;
 
     $befehl_termin_suchen = "SELECT * FROM eintraege WHERE termin_fk= '$session_pk' AND termin LIKE '%$termin_suchfeld%'";
     $antwort_termin_suchen = mysqli_query($link, $befehl_termin_suchen);
@@ -88,9 +89,8 @@ if (isset($_POST['termin_suchbegriff'])) {
         $datadate = $data_terminanzeige['datum'];
         $datazeit = substr($data_terminanzeige['uhrzeit'], 0, 5);
         $array_suchen = [];
-        if ($datadate >= date('Y-m-d')) {
-            $array_suchen[]= 1;
-            echo "
+        $array_suchen[] = 1;
+        echo "
         <tr>
             <td><a href='?bearbeiten=" . $datapk . "'>Bearbeiten</a></td>
             <td><a href='?loeschen=" . $datapk . "'>Löschen</a></td>
@@ -99,20 +99,16 @@ if (isset($_POST['termin_suchbegriff'])) {
             <td> " . $datazeit . "  </td>
         </tr>
         ";
-        }
     }
     echo " 
     </table>";
 
     if (empty($array_suchen)) {
-        echo '<p>Keine Termine mit dem Suchbegriff "'.$termin_suchfeld.'" gefunden.</p>';
+        echo '<p>Keine Termine mit dem Suchbegriff "' . $termin_suchfeld . '" gefunden.</p>';
         echo "
         <table id='eintraege_tab' style='display: none;'>";
-        die;
+        // die;
     }
-
-
-
 }
 
 
