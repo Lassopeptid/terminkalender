@@ -67,7 +67,7 @@ if (isset($_POST['termin_erstellen'])) {
 
 
     echo '
-    <p>Erstellen Sie hier schnell und zuverlässig einen Termin!</p>
+    <h2>Erstellen Sie hier schnell und zuverlässig einen Termin!</h2>
 <form action="" method=POST>
 <label for="datum">Datum:</label>
 <input type="date" id="datum" name="datum" min="' . $val_input . '" value="' . $val_input . '" required>
@@ -82,6 +82,63 @@ if (isset($_POST['termin_erstellen'])) {
 
 ';
 }
+
+if (isset($_POST['termin_submit_bearbeiten'])) {
+
+    $datum = htmlspecialchars($_POST['datum']);
+    $uhrzeit = htmlspecialchars($_POST['uhrzeit']);
+    $termin = mysqli_real_escape_string($link, $_POST['termin']);
+
+    $befehl_bearbeiten = "UPDATE eintraege SET termin='$termin', datum='$datum', uhrzeit='$uhrzeit'  WHERE termin_pk =" . $_GET["bearbeiten"];
+    mysqli_query($link, $befehl_bearbeiten);
+
+    echo '<p> Der Termin wurde erfolgreich bearbeitet!</p>';
+    echo '<p>Am ' . $datum . ' um ' .  $uhrzeit . ' hast du folgenden Termin notiert: </p>';
+    echo '<p>' . $termin . '</p>';
+    // echo date('Y-m-d');
+
+    echo '
+<form action="" method=POST id="termin_submit_bearbeiten" style="display:none;">';
+
+
+}
+
+
+if (isset($_GET["bearbeiten"])) {
+
+    $befehl_termin_bearbeiten = "SELECT termin, datum, uhrzeit FROM eintraege WHERE  termin_pk =" . $_GET["bearbeiten"];
+    $antwort_termin_bearbeiten = mysqli_query($link, $befehl_termin_bearbeiten);
+    $data_termin_bearbeiten = mysqli_fetch_array($antwort_termin_bearbeiten);
+    $datatermin_bearbeiten = $data_termin_bearbeiten['termin'];
+    $datadate_bearbeiten = $data_termin_bearbeiten['datum'];
+    $datazeit_bearbeiten = substr($data_termin_bearbeiten['uhrzeit'], 0, 5);
+
+
+    $val_input = date('Y-m-d');
+    $val_inputzeit = date("h:i");
+
+
+    echo '
+    <h2>Bearbeiten Sie hier den ausgewählten Termin!</h2>
+<form action="" method=POST id="termin_submit_bearbeiten">
+<label for="datum">Datum:</label>
+<input type="date" id="datum" name="datum" min="' . $val_input . '" value="' . $datadate_bearbeiten . '" required>
+
+<label for="uhrzeit">Uhrzeit:</label>
+<input type="time" id="uhrzeit" name="uhrzeit" value="' . $datazeit_bearbeiten . '" required>
+
+<p><label for="temin">Terminbeschreibung:</label></p>
+<textarea id="termin" name="termin" rows="4" cols="50"  required>' . $datatermin_bearbeiten . '</textarea>
+
+<input type="submit" name="termin_submit_bearbeiten" value=" Änderung bestätigen">
+</form>
+
+';
+}
+
+
+
+
 
 if (isset($_GET["loeschen"])) {
 
@@ -119,6 +176,9 @@ if (isset($_POST['termin_submit'])) {
 
 
 
+
+
+
 if (isset($_POST['anzeige'])) {
 
     $befehl_terminanzeige = "SELECT termin, datum, uhrzeit, termin_pk FROM eintraege WHERE termin_fk= '$session_pk' ORDER BY datum";
@@ -126,6 +186,7 @@ if (isset($_POST['anzeige'])) {
     echo "
     <table>
         <tr>
+            <td> Termin Bearbeiten</td>
             <td> Termin löschen </td>
             <td> Beschreibung </td>
             <td> Datum </td>
@@ -142,6 +203,7 @@ if (isset($_POST['anzeige'])) {
         if ($datadate >= date('Y-m-d')) {
             echo "
         <tr>
+            <td><a href='?bearbeiten=" . $datapk . "'>Bearbeiten</a></td>
             <td><a href='?loeschen=" . $datapk . "'>Löschen</a></td>
             <td> " . $datatermin . " </td>
             <td> " . $datadate . " </td>
@@ -162,12 +224,12 @@ if (isset($_POST['archiv'])) {
     $befehl_terminanzeige = "SELECT termin, datum, uhrzeit, termin_pk FROM eintraege WHERE termin_fk= '$session_pk' ORDER BY datum";
     $antwort_terminanzeige = mysqli_query($link, $befehl_terminanzeige);
     echo "
-    <table id= eintraege_tab > 
+    <table id='eintraege_tab' > 
         <tr>
-            <td> Löschen </td>
-            <td> termin </td>
-            <td> datum </td>
-            <td> uhrzeit </td>
+            <td> Termin löschen </td>
+            <td> Beschreibung </td>
+            <td> Datum </td>
+            <td> Uhrzeit </td>
         </tr>
     ";
     $i = 0;
@@ -177,9 +239,10 @@ if (isset($_POST['archiv'])) {
         $datatermin = $data_terminanzeige['termin'];
         $datadate = $data_terminanzeige['datum'];
         $datazeit = substr($data_terminanzeige['uhrzeit'], 0, 5);
-
+        $array_archiv = [];
         if ($datadate < date('Y-m-d')) {
-            $i++;
+            // $i++;
+            $array_archiv[] = 1;
             echo "
         <tr>
             <td><a href='?loeschen=" . $datapk . "'>Löschen</a></td>
@@ -189,14 +252,17 @@ if (isset($_POST['archiv'])) {
         </tr>
         ";
         }
-
-        if ($i == 0) {
-            echo '<p>Keine archivierten Termine.</p>';
-            // echo '<table id= eintraege_tab style="display:none;" > ';
-            die;
-        }
     }
+
     echo " 
     </table>";
+
+    if (  empty($array_archiv)  ) {
+        echo '<p>Keine archivierten Termine.</p>';
+        echo "
+        <table id='eintraege_tab' style='display: none;'>";
+        die;
+    }
+
     mysqli_close($link);
 }
