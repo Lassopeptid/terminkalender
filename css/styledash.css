@@ -1,0 +1,204 @@
+@font-face {
+    font-family: 'Ubuntu400';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/ubuntu-v20-latin-regular.woff2') format('woff2'),
+        url('../fonts/ubuntu-v20-latin-regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Ubuntu500';
+    font-style: italic;
+    font-weight: 500;
+    src: url('../fonts/ubuntu-v20-latin-500italic.woff2') format('woff2'),
+        url('../fonts/ubuntu-v20-latin-500italic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Ubuntu700';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/ubuntu-v20-latin-700.woff2') format('woff2'),
+        url('../fonts/ubuntu-v20-latin-700.woff') format('woff');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+html {
+    font: 1rem 'Ubuntu400', sans-serif;
+    color: whitesmoke;
+}
+
+h2,
+h3,
+h4 {
+    font: 2rem 'Ubuntu700', sans-serif;
+}
+
+
+h1 {
+    align-self: center;
+    color: whitesmoke;
+    font: 2rem 'Ubuntu700', sans-serif;
+}
+header {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(44, 91, 156);
+}
+h2,
+h3 {
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+    color: rgb(44, 91, 156);
+    padding-bottom: 0.6rem;
+}
+
+
+
+
+#container{
+    background-color: black;
+}
+
+
+#leftnav {
+    display: flex;
+flex-direction: row;
+    justify-content: space-around;
+flex-wrap: wrap;
+    background: rgb(44, 91, 156);
+}
+
+
+footer {
+    background-color: rgb(44, 91, 156);
+    color: whitesmoke;
+}
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+#leftnav>ul {
+    list-style: none;
+
+}
+
+#leftnav li {
+    position: relative;
+}
+
+#leftnav a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    display: block;
+    padding-right: 1rem;
+    font: 1.5rem 'Ubuntu700', sans-serif;
+
+}
+
+
+
+
+
+
+#leftnav a:hover  {
+    color: rgb(230, 68, 21);
+}
+
+
+
+
+button {
+    background-color: rgb(44, 91, 156);
+    color: whitesmoke;
+    font: 1rem 'Ubuntu700', sans-serif;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    margin-left: 2rem;
+} 
+
+button:hover {
+    background-color: rgb(230, 68, 21);
+} 
+
+input[type="submit"] {
+    background-color: rgb(44, 91, 156);
+    color: whitesmoke;
+    font: 1rem 'Ubuntu700', sans-serif;
+    border: none;
+    width: auto;
+    padding: 1rem;
+    cursor: pointer;
+    margin-left: 1rem;
+
+} 
+
+input[type="submit"]:hover {
+    background-color: rgb(230, 68, 21);
+}
+
+label {
+
+    display: block;
+} 
+
+input {
+    width: 75%;
+    padding: 12px 1rem;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+} 
+
+form {
+    margin: 1rem;
+}
+
+table {
+    font-size: 1.5rem;
+}
+table td {
+    padding: 0.3rem;
+}
+
+table a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+table a:hover {
+    color: rgb(230, 68, 21);
+
+}
+
+p {
+    margin-left: 1rem;
+    font-size: 1.5rem;
+
+}
+
+.tabfirst td{
+/* border: 1px solid rgb(44, 91, 156); */
+background-color: rgb(44, 91, 156);
+padding: 0.5rem;
+}

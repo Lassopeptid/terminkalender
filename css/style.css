@@ -2,42 +2,82 @@
     font-family: 'Ubuntu400';
     font-style: normal;
     font-weight: 400;
-    src: url('../fonts/ubuntu-v20-latin-regular.woff2') format('woff2'), 
-         url('../fonts/ubuntu-v20-latin-regular.woff') format('woff'); 
+    src: url('../fonts/ubuntu-v20-latin-regular.woff2') format('woff2'),
+        url('../fonts/ubuntu-v20-latin-regular.woff') format('woff');
 }
+
 @font-face {
     font-family: 'Ubuntu500';
     font-style: italic;
     font-weight: 500;
-    src: url('../fonts/ubuntu-v20-latin-500italic.woff2') format('woff2'), 
-         url('../fonts/ubuntu-v20-latin-500italic.woff') format('woff'); 
+    src: url('../fonts/ubuntu-v20-latin-500italic.woff2') format('woff2'),
+        url('../fonts/ubuntu-v20-latin-500italic.woff') format('woff');
 }
+
 @font-face {
     font-family: 'Ubuntu700';
     font-style: normal;
     font-weight: 700;
-    src: url('../fonts/ubuntu-v20-latin-700.woff2') format('woff2'), 
-         url('../fonts/ubuntu-v20-latin-700.woff') format('woff'); 
+    src: url('../fonts/ubuntu-v20-latin-700.woff2') format('woff2'),
+        url('../fonts/ubuntu-v20-latin-700.woff') format('woff');
 }
-* { 
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* body {
-    height: 100vh;
-} */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+html {
+    font: 1rem 'Ubuntu400', sans-serif;
+    color: whitesmoke;
+}
+
+h2,
+h3,
+h4 {
+    font: 2rem 'Ubuntu700', sans-serif;
+}
+
+
+h1 {
+    align-self: center;
+    color: whitesmoke;
+    font: 2rem 'Ubuntu700', sans-serif;
+    text-shadow: -1px -1px 7px black;
+}
+
+h2,
+h3 {
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+    color: rgb(44, 91, 156);
+    padding-bottom: 0.6rem;
+}
+
+
 
 #container {
     height: 100vh;
     display: grid;
-    grid-template-rows: 5rem 2rem auto 5rem;
+    grid-template-rows: 3rem 2rem auto 5rem;
     max-width: auto;
     margin: auto;
-    background-image: url('../images/b4.jpg');
-    background-size: contain;
+    background-color: rgb(19, 17, 17);
+    /* background-image: url('../images/b4.jpg'); */
+    /* background-size: contain; */
 }
+
 header {
     grid-row: 1 / 2;
     display: flex;
@@ -46,23 +86,27 @@ header {
     background-color: rgb(44, 91, 156);
     /* background-color: red; */
 }
-nav {
+
+#leftnav {
     grid-row: 2 / 3;
     display: flex;
+    height: 40px;
+
     justify-content: space-around;
 
-    position: fixed;
-    top: 5rem;
-    left: 10vw;
-    right: 10vw;
+    /* position: fixed; */
+    /* top: 3rem;
+    left: 30vw;
+    right: 30vw; */
     background: rgb(44, 91, 156);
-    z-index: 99;
+    /* background-color: red; */
+    /* z-index: 99; */
 }
+
 main {
     grid-row: 3 / 4;
-    display: grid; 
-    /* grid-template-rows: 6.25rem 400px 6.25rem 6.25rem; */
-    grid-template-rows: auto auto ;
+    display: grid;
+    grid-template-rows: auto auto;
     grid-template-columns: 50% 50%;
     /* display: flex;
     justify-content: center; */
@@ -70,28 +114,34 @@ main {
     /* flex-direction: column; */
     max-width: auto;
     margin: auto;
-    /* background-color: red; */
+    /* background-color: yellow; */
 }
+
 footer {
     grid-row: 4 / 5;
     background-color: rgb(44, 91, 156);
     color: whitesmoke;
 }
 
-#leftnav > ul {
+#leftnav>ul {
     list-style: none;
     display: flex;
 }
+
 #leftnav li {
     position: relative;
 }
+
 #leftnav a {
     text-decoration: none;
     color: white;
-    padding: 0.9rem 1rem;
-    display: block;
+    /* padding: 1rem 1rem; */
+    /* display: block; */
+    padding-right: 1rem;
+    font: 1.5rem 'Ubuntu700', sans-serif;
 
 }
+
 #leftnav ul ul {
     position: absolute;
     background: rgb(44, 91, 156);
@@ -103,19 +153,21 @@ footer {
     z-index: 100;
     min-width: 100%;
 }
+
 #leftnav li:hover ul {
     opacity: 1;
     visibility: visible;
     padding-top: 0px;
 }
+
 #leftnav ul ul a {
-    
-    /* border-bottom: 1px solid rgb(230, 68, 21); */
+
     transition: 0.5s;
 }
+
 #leftnav ul ul a:hover {
     background: rgb(230, 68, 21);
-}		
+}
 
 
 
@@ -124,20 +176,124 @@ button {
     color: whitesmoke;
     font: 1.5rem 'Ubuntu700', sans-serif;
     border: none;
-    width:35%;
+    width: 35%;
     padding: 1rem;
 }
+
 button:hover {
-    /* background-color: rgb(57, 156, 150); */
     background-color: rgb(230, 68, 21);
 }
 
-img {
-    max-width: 100%;
-    height: auto;
+input[type="submit"] {
+    background-color: rgb(44, 91, 156);
+    color: whitesmoke;
+    font: 1.5rem 'Ubuntu700', sans-serif;
+    border: none;
+    width: auto;
+    padding: 1rem;
+    cursor: pointer;
+
+}
+
+input[type="submit"]:hover {
+    background-color: rgb(230, 68, 21);
+}
+
+label {
+
     display: block;
 }
-#startwerbung{
+
+input {
+    width: 75%;
+    padding: 12px 1rem;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+}
+
+form {
+    width: 75%;
+    /* background-color: red; */
+
+}
+
+#divregeln {
+
+    font: 1.5rem 'Ubuntu700', sans-serif;
+    display: flex;
+}
+
+#divregeln p {
+
+    align-self: center;
+}
+
+#dashboard {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem;
+}
+
+#begruessung {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+
+}
+
+#divdashforms {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    /* display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; */
+    /* justify-content: space-around; */
+    /* align-items: center; */
+}
+table {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+}
+
+
+#sessionnull {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    font: 1.5rem 'Ubuntu700', sans-serif;
+    padding: 1rem;
+}
+
+#sessionnull p {
+    font: 1.5rem 'Ubuntu700', sans-serif;
+    padding-bottom: 1rem;
+}
+
+#sessionnull a {
+    font: 1.5rem 'Ubuntu700', sans-serif;
+    background-color: rgb(44, 91, 156);
+    padding: 0.5rem;
+}
+
+#divlogout {
+    display: flex;
+    flex-wrap: wrap;
+    font: 1.5rem 'Ubuntu700', sans-serif;
+    width: 400px;
+    justify-content: space-evenly;
+}
+
+#divlogout a {
+    font: 1.5rem 'Ubuntu700', sans-serif;
+    background-color: rgb(44, 91, 156);
+    padding: 0.5rem;
+    width: 75%;
+}
+
+#startwerbung {
     grid-column: 1 / 2;
     grid-row: 1 / 3;
     width: 75%;
@@ -147,76 +303,91 @@ img {
     padding-left: 2rem;
     padding-bottom: 1rem;
 }
+
 #startkonto {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     width: 75%;
     font: 1.5rem 'Ubuntu700', sans-serif;
-    /* color: whitesmoke; */
-    /* justify-self: center; */
-     align-self: center; 
-    /* padding-bottom: 1rem; */
-    /* background-color: yellow; */
+    align-self: center;
     padding-left: 1rem;
-    /* margin-top: 1rem; */
 }
+
 #startlogin {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     width: 75%;
     font: 1.5rem 'Ubuntu700', sans-serif;
-    /* color: whitesmoke; */
-    /* justify-self: center; */
-     align-self: center; 
-    /* padding-bottom: 1rem; */
-    /* background-color: green; */
+    align-self: center;
     padding-left: 1rem;
 }
+
 #startlogin p {
     padding-bottom: 1rem;
 }
+
 #startkonto p {
     padding-bottom: 1rem;
 }
-footer p,a {
+
+footer p,
+a {
     text-decoration: none;
     margin: 1rem .75rem;
     font: 1rem 'Ubuntu700', sans-serif;
     color: whitesmoke;
 }
 
-
-html { 
-    font: 1rem 'Ubuntu400', sans-serif; 
-    color: whitesmoke;
-}
-
- h2, h3, h4 { 
-    font: 2rem 'Ubuntu700', sans-serif; 
-}
-/* h1 {
-    font-size: calc(2vw + 1.2rem);
-    top: 40px;
-    padding: 2%;
-    text-align: center;
-} */
-
-h1 {
-    /* display: flex; */
-    /* justify-content: baseline; */
+#divlogin {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
     align-self: center;
-    /* width: 300px;
-    height: 75px; */
-    color: whitesmoke;
-    font: 2rem 'Ubuntu700', sans-serif;
-    text-shadow: -1px -1px 7px black;
+    padding-left: 1rem;
 }
 
-h2,h3 {
-    font-size: calc(1vw + 1.2rem);
-    text-align: center;
+#divfalsch{
+    display: flex;
+    justify-content: center;
+    /* align-content: center; */
+    /* flex-wrap: wrap;flex-direction: row; */
+    /* justify-content: right; */
+    /* flex-direction: column; */
 }
-h4 {
-    color: rgb(44, 91, 156);
-    padding-bottom: 0.6rem;
+
+#bnnameefalsch {
+    /* grid-column: 1 / 3;
+    grid-row: 2 / 3; */
+    display: flex;
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    justify-content: space-around;
+    color: rgb(230, 68, 21);
+    font: 1.5rem 'Ubuntu700', sans-serif;
+    padding-left: 1rem;
+    margin-top: 1rem;
+    align-self: center;
+    /* align-self: baseline; */
+}
+
+#btnlogout {
+    width: auto;
+}
+
+
+
+
+
+table a:hover {
+    color: rgb(230, 68, 21);
+
+}
+table  {
+    /* column-width: 100px; */
+    /* background-color: whitesmoke#; */
+
+
+}
+#tabfirst{
+    /* height: 100px; */
+    /* font-size: 2rem; */
 }
